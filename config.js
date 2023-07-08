@@ -7,7 +7,5 @@ dotenv.config({
 
 module.exports = {
     API: process.env.API,
-    Api_EndPoint: process.env.Api_EndPoint,
-
-    Mongo_URL: process.env.Mongo_URL
+    Api_EndPoint: process.env.Api_EndPoint
 }; 

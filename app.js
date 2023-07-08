@@ -1,6 +1,5 @@
 const config = require('./config.js');
-const cmnController = require("./CommonController");
-const connectionwithmongoDB = require("./Database/mongoose");
+const cmnController = require("./commoncontroller");
 
 // to call the dependancy function
 (() => {
@@ -8,10 +7,7 @@ const connectionwithmongoDB = require("./Database/mongoose");
         // API 
         if (config.API === 'ON') {
             // route api call
-            cmnController.appStarted('./Routes/index.js', config.Api_EndPoint, "Sample");
-
-            // // database connection
-            // connectionwithmongoDB();
+            cmnController.appStarted('./routes/index.js', config.Api_EndPoint, "Sample");
         };
     } catch (err) {
         console.log(err);

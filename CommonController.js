@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const process = require("process");
 
-const CommonController = {
+const commoncontroller = {
 
 	appStarted: function (routesPath, EndPointURL, EndPointName) {
 		try {
@@ -27,7 +27,7 @@ const CommonController = {
 				console.log(EndPointName + " App listening on http://" + endpointSplit[0] + ":" + endpointSplit[1]);
 			});
 		} catch (err) {
-			console.log("CommonController", err);
+			console.log("commoncontroller", err);
 		}
 	}
 
@@ -37,4 +37,4 @@ process.on("uncaughtException", (err) => {
 	console.log("uncaughtException", err);
 });
 
-module.exports = CommonController;
+module.exports = commoncontroller;
