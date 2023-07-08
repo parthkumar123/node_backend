@@ -1,10 +1,14 @@
 "use strict";
-const connectToDatabase = require("../database/mssql/mssql");
+const connectDB = require("../database/mssql/mssql");
 
 module.exports = async (app) => {
+
     app.get("/data", async (request, response) => {
         try {
-            await connectToDatabase();
+            // Connect to the database
+            await connectDB();
+
+            // Success handling
             response.status(200).send({
                 STATUS: "OK",
                 RESPONSE: {
@@ -12,6 +16,7 @@ module.exports = async (app) => {
                 },
             });
         } catch (err) {
+            // Error handling
             response.status(400).send({
                 STATUS: "ERROR",
                 RESPONSE: {
