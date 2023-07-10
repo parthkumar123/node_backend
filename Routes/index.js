@@ -1,6 +1,5 @@
 "use strict";
 const dbController = require("../database/mssql/mssql");
-const closeDB = require("../database/mssql/mssql");
 
 module.exports = async (app) => {
 
@@ -8,6 +7,7 @@ module.exports = async (app) => {
         try {
             // Connect to the database
             const dbConnection = await dbController.connectToDatabase();
+
             // Run the query
             await dbController.runQuery(dbConnection, "select * from test");
 
@@ -19,7 +19,7 @@ module.exports = async (app) => {
                 STATUS: "OK",
                 RESPONSE: {
                     TEXT: "SUCCESS",
-                },
+                }
             });
         } catch (err) {
             // Error handling
@@ -31,4 +31,5 @@ module.exports = async (app) => {
             });
         }
     });
+
 };
