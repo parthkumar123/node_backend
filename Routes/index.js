@@ -1,12 +1,18 @@
 "use strict";
-const connectDB = require("../database/mssql/mssql");
+const dbController = require("../database/mssql/mssql");
+const closeDB = require("../database/mssql/mssql");
 
 module.exports = async (app) => {
 
     app.get("/data", async (request, response) => {
         try {
             // Connect to the database
-            await connectDB();
+            const dbConnection = await dbController.connectToDatabase();
+            // Run the query
+            await dbController.runQuery(dbConnection, "select * from test");
+
+            // Close the database connection
+            await dbController.closeDB(dbConnection);
 
             // Success handling
             response.status(200).send({

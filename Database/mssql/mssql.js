@@ -1,37 +1,68 @@
 // Import the mssql module
-const sql = require('mssql');
+const mssql = require('mssql');
 
-// Function to connect to the database
-async function connectToDatabase() {
-    try {
-        // Create a new connection pool
-        const pool = new sql.ConnectionPool({
-            server: 'PARTH\\SQLEXPRESS',
-            user: 'PARTH\\shiya',
-            password: '',
-            database: 'parthdb',
-            options: {
-                trustServerCertificate: true, // Change to true for local dev / self-signed certs
-                encrypt: false // Use this option if you're connecting to Azure
-            }
-        })
+const sql = {
 
-        // Try to connect
-        await pool.connect().then((pool) => {
-            console.log("pool", pool);
-        }).catch((err) => {
-            console.log("err", err)
-        })
+    // Function to connect to the database
+    connectToDatabase: async function () {
+        try {
+            // Configure connection string
+            const dbString = {
+                server: "Parth\\SQLEXPRESS",
+                user: 'parth',
+                password: 'parthrs',
+                database: 'parthdb',
+                pool: {
+                    max: 10,
+                    min: 0,
+                    idleTimeoutMillis: 50000
+                },
+                options: {
+                    encrypt: false, // for azure
+                    trustServerCertificate: false, // change to true for local dev / self-signed certs
+                    // Set this parameter when response will get to longer time than 15000ms
+                    requestTimeout: 0, // 0 to disable
+                }
+            };
+            // Connect to the database
+            await mssql.connect(dbString);
+            console.log('Connected to the database');
 
-        console.log('Connected to the database');
+            // Return the mssql object
+            return mssql;
+        } catch (error) {
+            console.error('Error connecting to the database:', error);
+            // Return the error object
+            return error;
+        }
+    },
 
-        // Close the connection when finished
-        await pool.close();
-    } catch (error) {
-        // ... error checks
-        console.error('Error connecting to the database:', error);
+    // Function to connect to the database
+    closeDB: async function (mssql) {
+        try {
+            // Connect to the database
+            await mssql.connect(dbString);
+        } catch (error) {
+            // Return the error object
+            return error;
+        }
+    },
+
+    // Function to run the query
+    runQuery: async function (mssql, query) {
+        try {
+            // Run the query
+            const result = await mssql.query(query);
+
+            // Return the query results
+            return result;
+        } catch (error) {
+            // Return the error object
+            return error;
+        }
     }
 }
 
+
 // Export the function that runs the query
-module.exports = connectToDatabase;
+module.exports = sql;
