@@ -1,5 +1,5 @@
 const config = require('./config.js');
-const cmnController = require("./commoncontroller");
+const server = require("./server");
 
 // to call the dependancy function
 (() => {
@@ -7,7 +7,7 @@ const cmnController = require("./commoncontroller");
         // API 
         if (config.API === 'ON') {
             // route api call
-            cmnController.appStarted('./routes/index.js', config.Api_EndPoint, "Sample");
+            server.appStarted('./routes/index.js', config.Api_EndPoint, "Sample");
         };
     } catch (err) {
         console.log(err);
