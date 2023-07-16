@@ -91,14 +91,18 @@ module.exports = async (app) => {
 
             // Create the execute payment JSON object
             const execute_payment_json = {
-                "payer_id": payerId,
-                "transactions": [{
-                    "amount": {
-                        "currency": "USD",
-                        "total": "25.00"
-                    }
-                }]
+                "payer_id": payerId
             };
+
+            // const execute_payment_json = {
+            //     "payer_id": payerId,
+            //     "transactions": [{
+            //         "amount": {
+            //             "currency": "USD",
+            //             "total": "25.00"
+            //         }
+            //     }]
+            // };
 
             // Execute the payment
             paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
