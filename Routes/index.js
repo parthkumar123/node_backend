@@ -1,6 +1,7 @@
 "use strict";
+// Import the mssql module
 const dbController = require("../database/mssql/mssql");
-const closeDB = require("../database/mssql/mssql");
+// Import the paypal module
 const paypal = require('paypal-rest-sdk');
 
 // Set up PayPal SDK configuration
@@ -10,9 +11,11 @@ paypal.configure({
     client_secret: process.env.CLIENT_SECRET
 });
 
+// Export the routes
 module.exports = async (app) => {
 
-    app.get("/data", async (request, response) => {
+    // Default API route
+    app.get("/", async (request, response) => {
         try {
             // Connect to the database
             const dbConnection = await dbController.connectToDatabase();
